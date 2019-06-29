@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "buefy": "^0.7.7",
-    "firebase": "^6.2.2",
+    "firebase": "^6.2.4",
     "vee-validate": "^2.2.11",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
