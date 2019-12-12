@@ -2,7 +2,8 @@ import Vue from "vue";
 import Buefy from "buefy";
 import firebase from "firebase/app";
 import "firebase/auth";
-import VeeValidate from "vee-validate";
+import { extend, ValidationObserver, ValidationProvider } from "vee-validate";
+import { email } from "vee-validate/dist/rules";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
@@ -25,8 +26,18 @@ Vue.config.productionTip = false;
 Vue.use(Buefy, {
   defaultIconPack: "fa"
 });
-Vue.use(VeeValidate);
-
+Vue.component("ValidationObserver", ValidationObserver);
+Vue.component("ValidationProvider", ValidationProvider);
+extend("email", email);
+extend("required", {
+  validate(value) {
+    return {
+      required: true,
+      valid: ["", null, undefined].indexOf(value) === -1
+    };
+  },
+  computesRequired: true
+});
 firebase.auth().onAuthStateChanged(() => {
   if (!app) {
     app = new Vue({
