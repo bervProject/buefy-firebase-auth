@@ -11,11 +11,11 @@
             <ValidationProvider
               name="email"
               rules="required|email"
-              v-slot="{ errors, failed }"
+              v-slot="{ errors, failed, passed }"
             >
               <b-field
                 label="Email"
-                :type="{ 'is-danger': failed }"
+                :type="{ 'is-danger': failed, 'is-success': passed }"
                 :message="errors[0]"
               >
                 <b-input type="email" v-model="email" maxlength="30"></b-input>
@@ -24,11 +24,11 @@
             <ValidationProvider
               name="password"
               rules="required"
-              v-slot="{ errors, failed }"
+              v-slot="{ errors, failed, passed }"
             >
               <b-field
                 label="Password"
-                :type="{ 'is-danger': failed }"
+                :type="{ 'is-danger': failed, 'is-success': passed }"
                 :message="errors[0]"
               >
                 <b-input
