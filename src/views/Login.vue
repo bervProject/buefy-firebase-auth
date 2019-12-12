@@ -66,14 +66,14 @@ export default {
         .then(
           user => {
             this.$router.replace("home");
-            this.$toast.open({
+            this.$buefy.toast.open({
               message: `Welcome home ${user.user.displayName}`,
               type: "is-success",
               duration: 5000
             });
           },
           err => {
-            this.$toast.open({
+            this.$buefy.toast.open({
               message: `Error: ${err.message}`,
               type: "is-danger",
               duration: 5000
