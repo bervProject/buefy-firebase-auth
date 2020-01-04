@@ -8,7 +8,7 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "buefy": "^0.8.8",
+    "buefy": "^0.8.9",
     "firebase": "^7.6.1",
     "vee-validate": "^3.2.1",
     "vue": "^2.6.11",
