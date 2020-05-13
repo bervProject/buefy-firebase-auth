@@ -8,7 +8,7 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-let app = "";
+let app: Vue | null = null;
 
 const config = {
   apiKey: process.env.VUE_APP_API_KEY,

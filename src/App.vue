@@ -5,14 +5,34 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
+import firebase from "firebase/app";
 import MyFooter from "@/components/MyFooter.vue";
+import Component from "vue-class-component";
+import Vue from "vue";
 
-export default {
+@Component({
+  name: "app",
   components: {
     MyFooter
   }
-};
+})
+export default class App extends Vue {
+  mounted() {
+    firebase
+      .auth()
+      .getRedirectResult()
+      .catch(err => {
+        if (err) {
+          this.$buefy.toast.open({
+            message: `Error: ${err.message}`,
+            type: "is-danger",
+            duration: 9000
+          });
+        }
+      });
+  }
+}
 </script>
 
 <style lang="scss" src="./App.scss" />

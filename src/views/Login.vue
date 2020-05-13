@@ -6,7 +6,7 @@
       </h1>
       <div id="login-box" class="card">
         <div class="card-content">
-          <h1 class="title">Login</h1>
+          <h1 class="title has-text-centered">Login</h1>
           <ValidationObserver v-slot="{ handleSubmit }">
             <form @submit.prevent="handleSubmit(login)">
               <ValidationProvider
@@ -50,10 +50,39 @@
               </section>
             </form>
           </ValidationObserver>
+          <section class="section">
+            <h4 class="subtitle">Another Login Method</h4>
+            <div class="buttons">
+              <b-button
+                icon-left="google"
+                icon-pack="fab"
+                @click="loginWithGoogle()"
+                >Google</b-button
+              >
+              <b-button
+                icon-left="github"
+                icon-pack="fab"
+                @click="loginWithGithub()"
+                >Github</b-button
+              >
+              <b-button
+                icon-left="facebook"
+                icon-pack="fab"
+                @click="loginWithFacebook()"
+                >Facebook</b-button
+              >
+              <b-button
+                icon-left="twitter"
+                icon-pack="fab"
+                @click="loginWithTwitter()"
+                >Twitter</b-button
+              >
+            </div>
+          </section>
         </div>
       </div>
     </div>
   </section>
 </template>
 
-<script src="./login.js" />
+<script src="./login.ts" lang="ts" />
