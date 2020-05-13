@@ -109,7 +109,6 @@ export default class Home extends Vue {
               result.findIndex(x => x === "facebook.com") != -1;
             this.isLinkedTwitter =
               result.findIndex(x => x === "twitter.com") != -1;
-            console.log(result);
           });
       }
       this.updateProfile(currentUser);
