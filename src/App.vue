@@ -19,18 +19,24 @@ import Vue from "vue";
 })
 export default class App extends Vue {
   mounted() {
-    firebase
-      .auth()
-      .getRedirectResult()
-      .catch(err => {
-        if (err) {
-          this.$buefy.toast.open({
-            message: `Error: ${err.message}`,
-            type: "is-danger",
-            duration: 9000
-          });
+    const loadingComponent = this.$buefy.loading.open({
+      container: null
+    });
+    firebase.auth().onAuthStateChanged(
+      result => {
+        loadingComponent.close();
+        if (result) {
+          this.$router.replace("home");
         }
-      });
+      },
+      err => {
+        this.$buefy.toast.open({
+          message: `Error: ${err.message}`,
+          type: "is-danger",
+          duration: 9000
+        });
+      }
+    );
   }
 }
 </script>

@@ -46,22 +46,86 @@ export default class Login extends Vue {
   }
 
   loginWithGoogle(): void {
+    const loadingComponent = this.$buefy.loading.open({
+      container: null
+    });
     let provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
+    firebase
+      .auth()
+      .signInWithRedirect(provider)
+      .then(() => {
+        loadingComponent.close();
+      })
+      .catch(err => {
+        loadingComponent.close();
+        this.$buefy.toast.open({
+          message: `Error: ${err.message}`,
+          type: "is-danger",
+          duration: 5000
+        });
+      });
   }
 
   loginWithGithub(): void {
+    const loadingComponent = this.$buefy.loading.open({
+      container: null
+    });
     let provider = new firebase.auth.GithubAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
+    firebase
+      .auth()
+      .signInWithRedirect(provider)
+      .then(() => {
+        loadingComponent.close();
+      })
+      .catch(err => {
+        loadingComponent.close();
+        this.$buefy.toast.open({
+          message: `Error: ${err.message}`,
+          type: "is-danger",
+          duration: 5000
+        });
+      });
   }
 
   loginWithFacebook(): void {
+    const loadingComponent = this.$buefy.loading.open({
+      container: null
+    });
     let provider = new firebase.auth.FacebookAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
+    firebase
+      .auth()
+      .signInWithRedirect(provider)
+      .then(() => {
+        loadingComponent.close();
+      })
+      .catch(err => {
+        loadingComponent.close();
+        this.$buefy.toast.open({
+          message: `Error: ${err.message}`,
+          type: "is-danger",
+          duration: 5000
+        });
+      });
   }
 
   loginWithTwitter(): void {
+    const loadingComponent = this.$buefy.loading.open({
+      container: null
+    });
     let provider = new firebase.auth.TwitterAuthProvider();
-    firebase.auth().signInWithRedirect(provider);
+    firebase
+      .auth()
+      .signInWithRedirect(provider)
+      .then(() => {
+        loadingComponent.close();
+      })
+      .catch(err => {
+        loadingComponent.close();
+        this.$buefy.toast.open({
+          message: `Error: ${err.message}`,
+          type: "is-danger",
+          duration: 5000
+        });
+      });
   }
 }

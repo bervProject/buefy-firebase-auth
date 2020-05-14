@@ -8,8 +8,6 @@ import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-let app: Vue | null = null;
-
 const config = {
   apiKey: process.env.VUE_APP_API_KEY,
   authDomain: process.env.VUE_APP_AUTH_DOMAIN,
@@ -38,12 +36,8 @@ extend("required", {
   },
   computesRequired: true
 });
-firebase.auth().onAuthStateChanged(() => {
-  if (!app) {
-    app = new Vue({
-      router,
-      store,
-      render: h => h(App)
-    }).$mount("#app");
-  }
-});
+new Vue({
+  router,
+  store,
+  render: h => h(App)
+}).$mount("#app");
