@@ -6,34 +6,37 @@
 </template>
 
 <script lang="ts">
-import firebase from "firebase/app";
 import MyFooter from "@/components/MyFooter.vue";
 import Component from "vue-class-component";
 import Vue from "vue";
+import { getAuth } from "firebase/auth";
+import firebaseClient from "@/firebaseClient";
+
+const firebaseAuth = getAuth(firebaseClient);
 
 @Component({
   name: "app",
   components: {
-    MyFooter
-  }
+    MyFooter,
+  },
 })
 export default class App extends Vue {
   mounted() {
     const loadingComponent = this.$buefy.loading.open({
-      container: null
+      container: null,
     });
-    firebase.auth().onAuthStateChanged(
-      result => {
+    firebaseAuth.onAuthStateChanged(
+      (result) => {
         loadingComponent.close();
         if (result) {
           this.$router.replace("home");
         }
       },
-      err => {
+      (err) => {
         this.$buefy.toast.open({
           message: `Error: ${err.message}`,
           type: "is-danger",
-          duration: 9000
+          duration: 9000,
         });
       }
     );
