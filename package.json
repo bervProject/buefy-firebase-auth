@@ -11,7 +11,7 @@
     "buefy": "^0.9.4",
     "firebase": "^9.5.0",
     "vee-validate": "^3.4.5",
-    "vue": "^2.6.12",
+    "vue": "^2.6.14",
     "vue-class-component": "^7.2.6",
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^3.5.3",
@@ -33,6 +33,6 @@
     "node-sass": "^5.0.0",
     "sass-loader": "^10.1.1",
     "typescript": "~4.5.2",
-    "vue-template-compiler": "^2.6.12"
+    "vue-template-compiler": "^2.6.14"
   }
 }
