@@ -57,7 +57,7 @@ export default class Login extends Vue {
     const loadingComponent = this.$buefy.loading.open({
       container: null,
     });
-    let provider = new GoogleAuthProvider();
+    const provider = new GoogleAuthProvider();
     signInWithRedirect(firebaseAuth, provider)
       .then(() => {
         loadingComponent.close();
@@ -76,7 +76,7 @@ export default class Login extends Vue {
     const loadingComponent = this.$buefy.loading.open({
       container: null,
     });
-    let provider = new GithubAuthProvider();
+    const provider = new GithubAuthProvider();
     signInWithRedirect(firebaseAuth, provider)
       .then(() => {
         loadingComponent.close();
@@ -95,7 +95,7 @@ export default class Login extends Vue {
     const loadingComponent = this.$buefy.loading.open({
       container: null,
     });
-    let provider = new FacebookAuthProvider();
+    const provider = new FacebookAuthProvider();
 
     signInWithRedirect(firebaseAuth, provider)
       .then(() => {
@@ -115,7 +115,7 @@ export default class Login extends Vue {
     const loadingComponent = this.$buefy.loading.open({
       container: null,
     });
-    let provider = new TwitterAuthProvider();
+    const provider = new TwitterAuthProvider();
     signInWithRedirect(firebaseAuth, provider)
       .then(() => {
         loadingComponent.close();

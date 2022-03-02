@@ -87,25 +87,25 @@ export default class Home extends Vue {
     }
   }
   linkWithGithub(): void {
-    let provider = new GithubAuthProvider();
+    const provider = new GithubAuthProvider();
     if (firebaseAuth.currentUser) {
       linkWithRedirect(firebaseAuth.currentUser, provider);
     }
   }
   linkWithGoogle(): void {
-    let provider = new GoogleAuthProvider();
+    const provider = new GoogleAuthProvider();
     if (firebaseAuth.currentUser) {
       linkWithRedirect(firebaseAuth.currentUser, provider);
     }
   }
   linkWithFacebook(): void {
-    let provider = new FacebookAuthProvider();
+    const provider = new FacebookAuthProvider();
     if (firebaseAuth.currentUser) {
       linkWithRedirect(firebaseAuth.currentUser, provider);
     }
   }
   linkWithTwitter(): void {
-    let provider = new TwitterAuthProvider();
+    const provider = new TwitterAuthProvider();
     if (firebaseAuth.currentUser) {
       linkWithRedirect(firebaseAuth.currentUser, provider);
     }

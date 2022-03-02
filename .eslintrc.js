@@ -10,10 +10,11 @@ module.exports = {
   rules: {
     "no-console": process.env.NODE_ENV === "production" ? "error" : "off",
     "no-debugger": process.env.NODE_ENV === "production" ? "error" : "off",
+    "vue/multi-word-component-names": "warn",
   },
 
   parserOptions: {
-    parser: '@typescript-eslint/parser',
+    parser: "@typescript-eslint/parser",
   },
 
   extends: ["plugin:vue/essential", "@vue/prettier", "@vue/typescript"],
