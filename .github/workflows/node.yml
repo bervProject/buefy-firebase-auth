@@ -9,23 +9,20 @@ jobs:
     runs-on: ubuntu-20.04
     strategy:
       matrix:
-        node-version: [14.x, 16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [16.x, 17.x]
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
+    - name: Install Dependencies
+      run: yarn lint --frozen-lockfile
     - run: |
-        yarn
         yarn lint
         yarn build
-    #- name: Upload Codecov
-    #  run: bash <(curl -s https://codecov.io/bash)
-    #  if: ${{ matrix.node-version == '14.x' }}
     - name: Deploy
-      if: ${{ github.event_name == 'push' && matrix.node-version == '14.x' }}
+      if: ${{ github.event_name == 'push' && matrix.node-version == '16.x' }}
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
