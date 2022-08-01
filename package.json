@@ -10,7 +10,7 @@
   "dependencies": {
     "buefy": "^0.9.21",
     "core-js": "^3.23.3",
-    "firebase": "^9.8.4",
+    "firebase": "^9.9.1",
     "prettier": "^2.7.1",
     "vee-validate": "^3.4.14",
     "vue": "^2.6.14",
