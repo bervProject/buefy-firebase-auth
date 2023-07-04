@@ -6,10 +6,10 @@ on:
     branches: [ main ]
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-22.04
     strategy:
       matrix:
-        node-version: [16.x, 18.x]
+        node-version: [18.x, 20.x]
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
@@ -22,7 +22,7 @@ jobs:
         yarn lint
         yarn build
     - name: Deploy
-      if: ${{ github.event_name == 'push' && matrix.node-version == '16.x' }}
+      if: ${{ github.event_name == 'push' && matrix.node-version == '18.x' }}
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
