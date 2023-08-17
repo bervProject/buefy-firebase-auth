@@ -49,7 +49,7 @@ export default class Login extends Vue {
           type: "is-danger",
           duration: 5000,
         });
-      }
+      },
     );
   }
 
