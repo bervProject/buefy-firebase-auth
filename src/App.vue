@@ -38,7 +38,7 @@ export default class App extends Vue {
           type: "is-danger",
           duration: 9000,
         });
-      }
+      },
     );
   }
 }
