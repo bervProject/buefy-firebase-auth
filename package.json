@@ -12,7 +12,7 @@
     "core-js": "^3.33.2",
     "firebase": "^10.5.2",
     "prettier": "^3.0.3",
-    "vee-validate": "^3.4.15",
+    "vee-validate": "^4.11.8",
     "vue": "^3.3.7",
     "vue-class-component": "^7.2.6",
     "vue-property-decorator": "^9.1.2",
