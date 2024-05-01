@@ -13,7 +13,7 @@
     "firebase": "^10.10.0",
     "prettier": "^3.2.5",
     "vee-validate": "^3.4.15",
-    "vue": "^3.4.21",
+    "vue": "^3.4.26",
     "vue-class-component": "^7.2.6",
     "vue-property-decorator": "^9.1.2",
     "vue-router": "^4.3.2",
