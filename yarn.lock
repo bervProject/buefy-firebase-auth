@@ -7637,10 +7637,10 @@ vue-property-decorator@^9.1.2:
   resolved "https://registry.npmjs.org/vue-property-decorator/-/vue-property-decorator-9.1.2.tgz#266a2eac61ba6527e2e68a6933cfb98fddab5457"
   integrity sha512-xYA8MkZynPBGd/w5QFJ2d/NM0z/YeegMqYTphy7NJQXbZcuU6FC6AOdUAcy4SXP+YnkerC6AfH+ldg7PDk9ESQ==
 
-vue-router@^4.4.1:
-  version "4.4.1"
-  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.4.1.tgz#a22c39b9e240984bf068a7e0181d096167d49d68"
-  integrity sha512-njTLt/6gYGgIhv+U8nc5J6JpJpntFgy4fptRJ9Dp2qWQRo/PekB5DbKRYRPt0kM6feXysPKl7A5BjOmOJL5Ttw==
+vue-router@^4.4.3:
+  version "4.4.3"
+  resolved "https://registry.yarnpkg.com/vue-router/-/vue-router-4.4.3.tgz#58a39dc804632bfb6d26f052aa8f6718bd130299"
+  integrity sha512-sv6wmNKx2j3aqJQDMxLFzs/u/mjA9Z5LCgy6BE0f7yFWMjrPLnS/sPNn8ARY/FXw6byV18EFutn5lTO6+UsV5A==
   dependencies:
     "@vue/devtools-api" "^6.6.3"
 
