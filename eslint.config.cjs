@@ -8,6 +8,9 @@ const {
 
 module.exports = defineConfigWithVueTs(
     {
+		files: ["**/*.ts", "**/*.js", "**.*.vue"],
+	},
+    {
         languageOptions: {
             globals: {
                 ...globals.node,
