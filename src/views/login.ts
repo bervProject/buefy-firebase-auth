@@ -17,8 +17,8 @@ export default defineComponent({
   data() {
     return {
       email: "",
-      password: ""
-    }
+      password: "",
+    };
   },
   methods: {
     login(): void {
@@ -125,6 +125,6 @@ export default defineComponent({
             duration: 5000,
           });
         });
-    }
-  }
+    },
+  },
 });

@@ -30,7 +30,7 @@ export default defineComponent({
       isLinkedGithub: true,
       isLinkedTwitter: true,
       isLinkedFacebook: true,
-    }
+    };
   },
   methods: {
     logout(): void {
@@ -74,7 +74,7 @@ export default defineComponent({
       if (currentUser) {
         currentUser
           .delete()
-          .then((_) => {
+          .then(() => {
             this.$router.replace("login");
           })
           .catch((err) => {
@@ -109,7 +109,7 @@ export default defineComponent({
       if (firebaseAuth.currentUser) {
         linkWithRedirect(firebaseAuth.currentUser, provider);
       }
-    }
+    },
   },
 
   mounted(): void {
@@ -133,5 +133,5 @@ export default defineComponent({
       this.input.name = currentUser.displayName || "";
       this.input.photoURL = currentUser.photoURL || "";
     }
-  }
+  },
 });
