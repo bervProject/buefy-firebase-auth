@@ -6,24 +6,22 @@
 </template>
 
 <script lang="ts">
-import MyFooter from "@/components/MyFooter.vue";
-import Component from "vue-class-component";
-import Vue from "vue";
+import { defineComponent } from "vue";
+
+import MyFooter from "./components/MyFooter.vue";
 import { getAuth } from "firebase/auth";
 import firebaseClient from "@/firebaseClient";
 
 const firebaseAuth = getAuth(firebaseClient);
 
-@Component({
+export default defineComponent({
   name: "app",
   components: {
     MyFooter,
   },
-})
-export default class App extends Vue {
   mounted() {
     const loadingComponent = this.$buefy.loading.open({
-      container: null,
+      container: undefined,
     });
     firebaseAuth.onAuthStateChanged(
       (result) => {
@@ -41,7 +39,5 @@ export default class App extends Vue {
       },
     );
   }
-}
+});
 </script>
-
-<style lang="scss" src="./App.scss" />

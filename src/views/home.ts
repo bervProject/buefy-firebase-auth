@@ -1,6 +1,5 @@
 // @ is an alias to /src
-import Vue from "vue";
-import Component from "vue-class-component";
+import { defineComponent } from "vue";
 import {
   FacebookAuthProvider,
   fetchSignInMethodsForEmail,
@@ -16,100 +15,103 @@ import firebaseClient from "@/firebaseClient";
 
 const firebaseAuth = getAuth(firebaseClient);
 
-@Component({
+export default defineComponent({
   name: "home",
-})
-export default class Home extends Vue {
-  name: string | null = "";
-  photoUrl: string | null = "";
-  email: string | null = "";
-  input: any = {
-    name: "",
-    photoURL: "",
-  };
-  isLinkedGoogle: boolean = true;
-  isLinkedGithub: boolean = true;
-  isLinkedTwitter: boolean = true;
-  isLinkedFacebook: boolean = true;
-
-  logout(): void {
-    firebaseAuth.signOut().then(() => {
-      this.$router.replace("login");
-    });
-  }
-
-  update(): void {
-    const user = firebaseAuth.currentUser;
-    if (user != null) {
-      const loadingComponent = this.$buefy.loading.open({
-        container: null,
+  data() {
+    return {
+      name: "",
+      photoUrl: "",
+      email: "",
+      input: {
+        name: "",
+        photoURL: "",
+      },
+      isLinkedGoogle: true,
+      isLinkedGithub: true,
+      isLinkedTwitter: true,
+      isLinkedFacebook: true,
+    }
+  },
+  methods: {
+    logout(): void {
+      firebaseAuth.signOut().then(() => {
+        this.$router.replace("login");
       });
-      updateProfile(user, {
-        displayName: this.input.name,
-        photoURL: this.input.photoURL,
-      })
-        .then(() => {
-          loadingComponent.close();
-          this.updateProfile(firebaseAuth.currentUser);
-        })
-        .catch((error) => {
-          loadingComponent.close();
-          this.$buefy.toast.open({
-            message: `Error: ${error.message}`,
-            type: "is-danger",
-            duration: 5000,
-          });
+    },
+    update(): void {
+      const user = firebaseAuth.currentUser;
+      if (user != null) {
+        const loadingComponent = this.$buefy.loading.open({
+          container: undefined,
         });
-    }
-  }
-  updateProfile(currentUser: User | null): void {
-    if (currentUser) {
-      this.email = currentUser.email;
-      this.name = currentUser.displayName;
-      this.photoUrl = currentUser.photoURL;
-    }
-  }
-  deleteAccount(): void {
-    const currentUser = firebaseAuth.currentUser;
-    if (currentUser) {
-      currentUser
-        .delete()
-        .then((_) => {
-          this.$router.replace("login");
+        updateProfile(user, {
+          displayName: this.input.name,
+          photoURL: this.input.photoURL,
         })
-        .catch((err) => {
-          this.$buefy.toast.open({
-            message: `Error: ${err.message}`,
-            type: "is-danger",
-            duration: 5000,
+          .then(() => {
+            loadingComponent.close();
+            this.updateProfile(firebaseAuth.currentUser);
+          })
+          .catch((error) => {
+            loadingComponent.close();
+            this.$buefy.toast.open({
+              message: `Error: ${error.message}`,
+              type: "is-danger",
+              duration: 5000,
+            });
           });
-        });
+      }
+    },
+    updateProfile(currentUser: User | null): void {
+      if (currentUser) {
+        this.email = currentUser.email || "";
+        this.name = currentUser.displayName || "";
+        this.photoUrl = currentUser.photoURL || "";
+      }
+    },
+    deleteAccount(): void {
+      const currentUser = firebaseAuth.currentUser;
+      if (currentUser) {
+        currentUser
+          .delete()
+          .then((_) => {
+            this.$router.replace("login");
+          })
+          .catch((err) => {
+            this.$buefy.toast.open({
+              message: `Error: ${err.message}`,
+              type: "is-danger",
+              duration: 5000,
+            });
+          });
+      }
+    },
+    linkWithGithub(): void {
+      const provider = new GithubAuthProvider();
+      if (firebaseAuth.currentUser) {
+        linkWithRedirect(firebaseAuth.currentUser, provider);
+      }
+    },
+    linkWithGoogle(): void {
+      const provider = new GoogleAuthProvider();
+      if (firebaseAuth.currentUser) {
+        linkWithRedirect(firebaseAuth.currentUser, provider);
+      }
+    },
+    linkWithFacebook(): void {
+      const provider = new FacebookAuthProvider();
+      if (firebaseAuth.currentUser) {
+        linkWithRedirect(firebaseAuth.currentUser, provider);
+      }
+    },
+    linkWithTwitter(): void {
+      const provider = new TwitterAuthProvider();
+      if (firebaseAuth.currentUser) {
+        linkWithRedirect(firebaseAuth.currentUser, provider);
+      }
     }
-  }
-  linkWithGithub(): void {
-    const provider = new GithubAuthProvider();
-    if (firebaseAuth.currentUser) {
-      linkWithRedirect(firebaseAuth.currentUser, provider);
-    }
-  }
-  linkWithGoogle(): void {
-    const provider = new GoogleAuthProvider();
-    if (firebaseAuth.currentUser) {
-      linkWithRedirect(firebaseAuth.currentUser, provider);
-    }
-  }
-  linkWithFacebook(): void {
-    const provider = new FacebookAuthProvider();
-    if (firebaseAuth.currentUser) {
-      linkWithRedirect(firebaseAuth.currentUser, provider);
-    }
-  }
-  linkWithTwitter(): void {
-    const provider = new TwitterAuthProvider();
-    if (firebaseAuth.currentUser) {
-      linkWithRedirect(firebaseAuth.currentUser, provider);
-    }
-  }
+  },
+
   mounted(): void {
     const currentUser = firebaseAuth.currentUser;
     if (currentUser) {
@@ -128,8 +130,8 @@ export default class Home extends Vue {
         );
       }
       this.updateProfile(currentUser);
-      this.input.name = currentUser.displayName;
-      this.input.photoURL = currentUser.photoURL;
+      this.input.name = currentUser.displayName || "";
+      this.input.photoURL = currentUser.photoURL || "";
     }
   }
-}
+});
