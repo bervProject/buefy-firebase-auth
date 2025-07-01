@@ -1,12 +1,12 @@
-import globals from "globals";
-import prettierConfig from "@vue/eslint-config-prettier";
-import pluginVue from 'eslint-plugin-vue';
-import {
+const globals = require("globals");
+const prettierConfig = require("@vue/eslint-config-prettier");
+const pluginVue = require('eslint-plugin-vue');
+const {
   defineConfigWithVueTs,
   vueTsConfigs,
-} from '@vue/eslint-config-typescript';
+} = require('@vue/eslint-config-typescript');
 
-export default defineConfigWithVueTs(
+module.exports = defineConfigWithVueTs(
     {
         languageOptions: {
             globals: {
