@@ -11,7 +11,7 @@
     "buefy": "^0.9.29",
     "core-js": "^3.42.0",
     "firebase": "^11.10.0",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.2",
     "vee-validate": "^3.4.15",
     "vue": "^3.5.17",
     "vue-class-component": "^7.2.6",
@@ -34,7 +34,7 @@
     "eslint-plugin-prettier": "^5.4.1",
     "eslint-plugin-vue": "^9.33.0",
     "node-sass": "^9.0.0",
-    "prettier": "^3.5.3",
+    "prettier": "^3.6.2",
     "sass-loader": "^16.0.5",
     "typescript": "~5.8.3",
     "vue-template-compiler": "^2.7.16"
