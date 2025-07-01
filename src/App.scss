@@ -1,10 +1,10 @@
 
 @use "bulma/sass" with (
   // Set your colors
-  $primary: #8c67ef;
-  $primary-invert: findColorInvert($primary);
-  $twitter: #4099ff;
-  $twitter-invert: findColorInvert($twitter);
+  $primary: #8c67ef,
+  $primary-invert: findColorInvert($primary),
+  $twitter: #4099ff,
+  $twitter-invert: findColorInvert($twitter),
   // Setup $colors to use as bulma classes (e.g. 'is-twitter')
   $colors: (
     "white": (
@@ -47,12 +47,10 @@
       $twitter,
       $twitter-invert
     )
-  );
-  
-  // Links
-  $link: $primary;
-  $link-invert: $primary-invert;
-  $link-focus-border: $primary;
+  ),
+  $link: $primary,
+  $link-invert: $primary-invert,
+  $link-focus-border: $primary
 );
 
 // Import Buefy styles
