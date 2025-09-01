@@ -6,38 +6,36 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
-
-import MyFooter from "./components/MyFooter.vue";
+import { defineComponent, onMounted } from "vue";
+import MyFooter from "@/components/MyFooter.vue";
 import { getAuth } from "firebase/auth";
 import firebaseClient from "@/firebaseClient";
+import { useRouter } from "vue-router";
 
 const firebaseAuth = getAuth(firebaseClient);
 
 export default defineComponent({
-  name: "app",
+  name: "App",
   components: {
     MyFooter,
   },
-  mounted() {
-    const loadingComponent = this.$buefy.loading.open({
-      container: undefined,
+  setup() {
+    const router = useRouter();
+
+    onMounted(() => {
+      firebaseAuth.onAuthStateChanged(
+        (result) => {
+          if (result) {
+            router.replace("/home");
+          }
+        },
+        (err) => {
+          console.error("Auth error:", err.message);
+        },
+      );
     });
-    firebaseAuth.onAuthStateChanged(
-      (result) => {
-        loadingComponent.close();
-        if (result) {
-          this.$router.replace("home");
-        }
-      },
-      (err) => {
-        this.$buefy.toast.open({
-          message: `Error: ${err.message}`,
-          type: "is-danger",
-          duration: 9000,
-        });
-      },
-    );
+
+    return {};
   },
 });
 </script>

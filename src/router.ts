@@ -11,7 +11,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes: [
     {
-      path: "*",
+      path: "/:pathMatch(.*)*",
       redirect: "/login",
     },
     {
@@ -21,9 +21,6 @@ const router = createRouter({
     {
       path: "/login",
       name: "Login",
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
       component: Login,
     },
     {
@@ -39,11 +36,11 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const currentUser = firebaseAuth.currentUser;
-  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
+  const requiresAuth = to.matched.some((record) => record.meta?.requiresAuth);
   if (requiresAuth && !currentUser) {
-    next("login");
+    next("/login");
   } else if (!requiresAuth && currentUser) {
-    next("home");
+    next("/home");
   } else {
     next();
   }

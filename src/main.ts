@@ -1,10 +1,11 @@
 import { createApp } from "vue";
 import Buefy from "buefy";
+import "bulma/css/bulma.css";
+import "buefy/dist/css/buefy.css";
 import { defineRule } from "vee-validate";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-import "buefy/dist/buefy.css";
 
 const app = createApp(App);
 

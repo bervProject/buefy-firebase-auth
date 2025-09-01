@@ -5,10 +5,14 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "eslint"
+    "lint": "eslint src/ --ext .js,.ts,.vue",
+    "lint:fix": "eslint src/ --ext .js,.ts,.vue --fix",
+    "lint:css": "stylelint 'src/**/*.{css,scss,vue}'",
+    "lint:css:fix": "stylelint 'src/**/*.{css,scss,vue}' --fix"
   },
   "dependencies": {
-    "buefy": "^1.0.1",
+    "buefy": "^3.0.2",
+    "bulma": "^1.0.4",
     "core-js": "^3.45.1",
     "firebase": "^12.2.1",
     "vee-validate": "^4.15.1",
@@ -17,23 +21,24 @@
     "vuex": "^4.1.0"
   },
   "devDependencies": {
-    "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.34.0",
+    "@typescript-eslint/eslint-plugin": "^8.18.2",
+    "@typescript-eslint/parser": "^8.18.2",
     "@vue/cli-plugin-babel": "~5.0.9",
+    "@vue/cli-plugin-eslint": "~5.0.9",
     "@vue/cli-plugin-typescript": "~5.0.9",
     "@vue/cli-service": "~5.0.9",
-    "@vue/eslint-config-prettier": "^10.0.2",
-    "@vue/eslint-config-typescript": "^14.6.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^9.34.0",
-    "eslint-config-prettier": "^10.1.8",
-    "eslint-plugin-prettier": "^5.5.4",
-    "eslint-plugin-vue": "^10.4.0",
-    "globals": "^16.2.0",
-    "prettier": "^3.6.2",
-    "sass": "^1.91.0",
+    "eslint": "^9.17.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "eslint-plugin-vue": "^9.31.0",
+    "postcss-html": "^1.8.0",
+    "prettier": "^3.4.2",
+    "sass": "^1.80.7",
     "sass-loader": "^16.0.5",
-    "typescript": "^5.8.3"
+    "stylelint": "^16.23.1",
+    "stylelint-config-standard": "^39.0.0",
+    "stylelint-config-standard-vue": "^1.0.0",
+    "typescript": "~5.8.2",
+    "vue-eslint-parser": "^10.2.0"
   },
   "packageManager": "yarn@1.22.19"
 }

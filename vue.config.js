@@ -6,4 +6,14 @@ module.exports = {
       : "/",
 
   transpileDependencies: true,
+  
+  lintOnSave: false,
+  
+  css: {
+    loaderOptions: {
+      css: {
+        url: false
+      }
+    }
+  }
 };
