@@ -6,7 +6,9 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "eslint src/ --ext .js,.ts,.vue",
-    "lint:fix": "eslint src/ --ext .js,.ts,.vue --fix"
+    "lint:fix": "eslint src/ --ext .js,.ts,.vue --fix",
+    "lint:css": "stylelint 'src/**/*.{css,scss,vue}'",
+    "lint:css:fix": "stylelint 'src/**/*.{css,scss,vue}' --fix"
   },
   "dependencies": {
     "buefy": "^3.0.2",
@@ -28,9 +30,13 @@
     "eslint": "^9.17.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-vue": "^9.31.0",
+    "postcss-html": "^1.8.0",
     "prettier": "^3.4.2",
     "sass": "^1.80.7",
     "sass-loader": "^16.0.5",
+    "stylelint": "^16.23.1",
+    "stylelint-config-standard": "^39.0.0",
+    "stylelint-config-standard-vue": "^1.0.0",
     "typescript": "~5.8.2",
     "vue-eslint-parser": "^10.2.0"
   },
