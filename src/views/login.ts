@@ -1,5 +1,5 @@
-import Vue from "vue";
-import Component from "vue-class-component";
+import { defineComponent, ref } from "vue";
+import { useRouter } from "vue-router";
 import {
   FacebookAuthProvider,
   getAuth,
@@ -13,120 +13,65 @@ import firebaseClient from "@/firebaseClient";
 
 const firebaseAuth = getAuth(firebaseClient);
 
-@Component({
-  name: "login",
-})
-export default class Login extends Vue {
-  email: string = "";
-  password: string = "";
+export default defineComponent({
+  name: "Login",
+  setup() {
+    const router = useRouter();
+    const email = ref("");
+    const password = ref("");
 
-  login(): void {
-    const loadingComponent = this.$buefy.loading.open({
-      container: null,
-    });
-    signInWithEmailAndPassword(firebaseAuth, this.email, this.password).then(
-      (response) => {
-        loadingComponent.close();
-        if (response.user) {
-          this.$router.replace("home");
-          this.$buefy.toast.open({
-            message: `Welcome home ${response.user.email}`,
-            type: "is-success",
-            duration: 5000,
-          });
-        } else {
-          this.$buefy.toast.open({
-            message: `Can't get user information.`,
-            type: "is-warning",
-            duration: 5000,
-          });
+    const login = () => {
+      signInWithEmailAndPassword(firebaseAuth, email.value, password.value).then(
+        (response) => {
+          if (response.user) {
+            router.replace("/home");
+            console.log(`Welcome home ${response.user.email}`);
+          } else {
+            console.log("Can't get user information.");
+          }
+        },
+        (err) => {
+          console.error("Error:", err.message);
         }
-      },
-      (err) => {
-        loadingComponent.close();
-        this.$buefy.toast.open({
-          message: `Error: ${err.message}`,
-          type: "is-danger",
-          duration: 5000,
-        });
-      },
-    );
-  }
+      );
+    };
 
-  loginWithGoogle(): void {
-    const loadingComponent = this.$buefy.loading.open({
-      container: null,
-    });
-    const provider = new GoogleAuthProvider();
-    signInWithRedirect(firebaseAuth, provider)
-      .then(() => {
-        loadingComponent.close();
-      })
-      .catch((err) => {
-        loadingComponent.close();
-        this.$buefy.toast.open({
-          message: `Error: ${err.message}`,
-          type: "is-danger",
-          duration: 5000,
-        });
+    const loginWithGoogle = () => {
+      const provider = new GoogleAuthProvider();
+      signInWithRedirect(firebaseAuth, provider).catch((err) => {
+        console.error("Error:", err.message);
       });
-  }
+    };
 
-  loginWithGithub(): void {
-    const loadingComponent = this.$buefy.loading.open({
-      container: null,
-    });
-    const provider = new GithubAuthProvider();
-    signInWithRedirect(firebaseAuth, provider)
-      .then(() => {
-        loadingComponent.close();
-      })
-      .catch((err) => {
-        loadingComponent.close();
-        this.$buefy.toast.open({
-          message: `Error: ${err.message}`,
-          type: "is-danger",
-          duration: 5000,
-        });
+    const loginWithGithub = () => {
+      const provider = new GithubAuthProvider();
+      signInWithRedirect(firebaseAuth, provider).catch((err) => {
+        console.error("Error:", err.message);
       });
-  }
+    };
 
-  loginWithFacebook(): void {
-    const loadingComponent = this.$buefy.loading.open({
-      container: null,
-    });
-    const provider = new FacebookAuthProvider();
-
-    signInWithRedirect(firebaseAuth, provider)
-      .then(() => {
-        loadingComponent.close();
-      })
-      .catch((err) => {
-        loadingComponent.close();
-        this.$buefy.toast.open({
-          message: `Error: ${err.message}`,
-          type: "is-danger",
-          duration: 5000,
-        });
+    const loginWithFacebook = () => {
+      const provider = new FacebookAuthProvider();
+      signInWithRedirect(firebaseAuth, provider).catch((err) => {
+        console.error("Error:", err.message);
       });
-  }
+    };
 
-  loginWithTwitter(): void {
-    const loadingComponent = this.$buefy.loading.open({
-      container: null,
-    });
-    const provider = new TwitterAuthProvider();
-    signInWithRedirect(firebaseAuth, provider)
-      .then(() => {
-        loadingComponent.close();
-      })
-      .catch((err) => {
-        loadingComponent.close();
-        this.$buefy.toast.open({
-          message: `Error: ${err.message}`,
-          type: "is-danger",
-          duration: 5000,
-        });
+    const loginWithTwitter = () => {
+      const provider = new TwitterAuthProvider();
+      signInWithRedirect(firebaseAuth, provider).catch((err) => {
+        console.error("Error:", err.message);
       });
-  }
-}
+    };
+
+    return {
+      email,
+      password,
+      login,
+      loginWithGoogle,
+      loginWithGithub,
+      loginWithFacebook,
+      loginWithTwitter,
+    };
+  },
+});

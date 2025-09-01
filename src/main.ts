@@ -1,30 +1,17 @@
-import Vue from "vue";
+import { createApp } from "vue";
 import Buefy from "buefy";
-import { extend, ValidationObserver, ValidationProvider } from "vee-validate";
-import { email } from "vee-validate/dist/rules";
+import "bulma/css/bulma.css";
+import "buefy/dist/css/buefy.css";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
 
-Vue.config.productionTip = false;
+const app = createApp(App);
 
-Vue.use(Buefy, {
+app.use(Buefy, {
   defaultIconPack: "fa",
 });
-Vue.component("ValidationObserver", ValidationObserver);
-Vue.component("ValidationProvider", ValidationProvider);
-extend("email", email);
-extend("required", {
-  validate(value) {
-    return {
-      required: true,
-      valid: ["", null, undefined].indexOf(value) === -1,
-    };
-  },
-  computesRequired: true,
-});
-new Vue({
-  router,
-  store,
-  render: (h) => h(App),
-}).$mount("#app");
+app.use(router);
+app.use(store);
+
+app.mount("#app");

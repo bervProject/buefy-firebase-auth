@@ -6,42 +6,36 @@
 </template>
 
 <script lang="ts">
+import { defineComponent, onMounted } from "vue";
 import MyFooter from "@/components/MyFooter.vue";
-import Component from "vue-class-component";
-import Vue from "vue";
 import { getAuth } from "firebase/auth";
 import firebaseClient from "@/firebaseClient";
+import { useRouter } from "vue-router";
 
 const firebaseAuth = getAuth(firebaseClient);
 
-@Component({
-  name: "app",
+export default defineComponent({
+  name: "App",
   components: {
     MyFooter,
   },
-})
-export default class App extends Vue {
-  mounted() {
-    const loadingComponent = this.$buefy.loading.open({
-      container: null,
-    });
-    firebaseAuth.onAuthStateChanged(
-      (result) => {
-        loadingComponent.close();
-        if (result) {
-          this.$router.replace("home");
-        }
-      },
-      (err) => {
-        this.$buefy.toast.open({
-          message: `Error: ${err.message}`,
-          type: "is-danger",
-          duration: 9000,
-        });
-      },
-    );
-  }
-}
-</script>
+  setup() {
+    const router = useRouter();
 
-<style lang="scss" src="./App.scss" />
+    onMounted(() => {
+      firebaseAuth.onAuthStateChanged(
+        (result) => {
+          if (result) {
+            router.replace("/home");
+          }
+        },
+        (err) => {
+          console.error("Auth error:", err.message);
+        },
+      );
+    });
+
+    return {};
+  },
+});
+</script>

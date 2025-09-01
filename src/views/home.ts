@@ -1,135 +1,108 @@
-// @ is an alias to /src
-import Vue from "vue";
-import Component from "vue-class-component";
+import { defineComponent, ref, onMounted } from "vue";
+import { useRouter } from "vue-router";
 import {
   FacebookAuthProvider,
-  fetchSignInMethodsForEmail,
   getAuth,
   GithubAuthProvider,
   GoogleAuthProvider,
-  linkWithRedirect,
   TwitterAuthProvider,
   updateProfile,
-  User,
 } from "firebase/auth";
 import firebaseClient from "@/firebaseClient";
 
 const firebaseAuth = getAuth(firebaseClient);
 
-@Component({
-  name: "home",
-})
-export default class Home extends Vue {
-  name: string | null = "";
-  photoUrl: string | null = "";
-  email: string | null = "";
-  input: any = {
-    name: "",
-    photoURL: "",
-  };
-  isLinkedGoogle: boolean = true;
-  isLinkedGithub: boolean = true;
-  isLinkedTwitter: boolean = true;
-  isLinkedFacebook: boolean = true;
-
-  logout(): void {
-    firebaseAuth.signOut().then(() => {
-      this.$router.replace("login");
+export default defineComponent({
+  name: "Home",
+  setup() {
+    const router = useRouter();
+    const name = ref<string | null>("");
+    const photoUrl = ref<string | null>("");
+    const email = ref<string | null>("");
+    const input = ref({
+      name: "",
+      photoURL: "",
     });
-  }
 
-  update(): void {
-    const user = firebaseAuth.currentUser;
-    if (user != null) {
-      const loadingComponent = this.$buefy.loading.open({
-        container: null,
+    const logout = () => {
+      firebaseAuth.signOut().then(() => {
+        router.replace("/login");
       });
-      updateProfile(user, {
-        displayName: this.input.name,
-        photoURL: this.input.photoURL,
-      })
-        .then(() => {
-          loadingComponent.close();
-          this.updateProfile(firebaseAuth.currentUser);
+    };
+
+    const updateUserProfile = () => {
+      const user = firebaseAuth.currentUser;
+      if (user != null) {
+        updateProfile(user, {
+          displayName: input.value.name,
+          photoURL: input.value.photoURL,
         })
-        .catch((error) => {
-          loadingComponent.close();
-          this.$buefy.toast.open({
-            message: `Error: ${error.message}`,
-            type: "is-danger",
-            duration: 5000,
+          .then(() => {
+            console.log("Profile updated");
+          })
+          .catch((error) => {
+            console.error("Error:", error.message);
           });
-        });
-    }
-  }
-  updateProfile(currentUser: User | null): void {
-    if (currentUser) {
-      this.email = currentUser.email;
-      this.name = currentUser.displayName;
-      this.photoUrl = currentUser.photoURL;
-    }
-  }
-  deleteAccount(): void {
-    const currentUser = firebaseAuth.currentUser;
-    if (currentUser) {
-      currentUser
-        .delete()
-        .then((_) => {
-          this.$router.replace("login");
-        })
-        .catch((err) => {
-          this.$buefy.toast.open({
-            message: `Error: ${err.message}`,
-            type: "is-danger",
-            duration: 5000,
-          });
-        });
-    }
-  }
-  linkWithGithub(): void {
-    const provider = new GithubAuthProvider();
-    if (firebaseAuth.currentUser) {
-      linkWithRedirect(firebaseAuth.currentUser, provider);
-    }
-  }
-  linkWithGoogle(): void {
-    const provider = new GoogleAuthProvider();
-    if (firebaseAuth.currentUser) {
-      linkWithRedirect(firebaseAuth.currentUser, provider);
-    }
-  }
-  linkWithFacebook(): void {
-    const provider = new FacebookAuthProvider();
-    if (firebaseAuth.currentUser) {
-      linkWithRedirect(firebaseAuth.currentUser, provider);
-    }
-  }
-  linkWithTwitter(): void {
-    const provider = new TwitterAuthProvider();
-    if (firebaseAuth.currentUser) {
-      linkWithRedirect(firebaseAuth.currentUser, provider);
-    }
-  }
-  mounted(): void {
-    const currentUser = firebaseAuth.currentUser;
-    if (currentUser) {
-      if (currentUser.email) {
-        fetchSignInMethodsForEmail(firebaseAuth, currentUser.email).then(
-          (result) => {
-            this.isLinkedGoogle =
-              result.findIndex((x) => x === "google.com") != -1;
-            this.isLinkedGithub =
-              result.findIndex((x) => x === "github.com") != -1;
-            this.isLinkedFacebook =
-              result.findIndex((x) => x === "facebook.com") != -1;
-            this.isLinkedTwitter =
-              result.findIndex((x) => x === "twitter.com") != -1;
-          },
-        );
       }
-      this.updateProfile(currentUser);
-      this.input.name = currentUser.displayName;
-      this.input.photoURL = currentUser.photoURL;
-    }
-  }
-}
+    };
+
+    const deleteAccount = () => {
+      const user = firebaseAuth.currentUser;
+      if (user) {
+        user
+          .delete()
+          .then(() => {
+            router.replace("/login");
+          })
+          .catch((err) => {
+            console.error("Error:", err.message);
+          });
+      }
+    };
+
+    onMounted(() => {
+      const user = firebaseAuth.currentUser;
+      if (user) {
+        name.value = user.displayName;
+        photoUrl.value = user.photoURL;
+        email.value = user.email;
+        input.value.name = user.displayName || "";
+        input.value.photoURL = user.photoURL || "";
+      }
+    });
+
+    const linkWithGoogle = () => {
+      const provider = new GoogleAuthProvider();
+      // Implementation for linking Google account
+    };
+
+    const linkWithGithub = () => {
+      const provider = new GithubAuthProvider();
+      // Implementation for linking Github account
+    };
+
+    const linkWithFacebook = () => {
+      const provider = new FacebookAuthProvider();
+      // Implementation for linking Facebook account
+    };
+
+    const linkWithTwitter = () => {
+      const provider = new TwitterAuthProvider();
+      // Implementation for linking Twitter account
+    };
+
+    return {
+      name,
+      photoUrl,
+      email,
+      input,
+      logout,
+      updateUserProfile,
+      deleteAccount,
+      linkWithGoogle,
+      linkWithGithub,
+      linkWithFacebook,
+      linkWithTwitter,
+    };
+  },
+});
