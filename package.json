@@ -37,7 +37,7 @@
     "stylelint": "^16.24.0",
     "stylelint-config-standard": "^39.0.0",
     "stylelint-config-standard-vue": "^1.0.0",
-    "typescript": "~5.8.2",
+    "typescript": "~5.9.3",
     "vue-eslint-parser": "^10.2.0"
   },
   "packageManager": "yarn@1.22.19"
