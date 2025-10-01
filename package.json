@@ -11,7 +11,7 @@
     "lint:css:fix": "stylelint 'src/**/*.{css,scss,vue}' --fix"
   },
   "dependencies": {
-    "buefy": "^3.0.2",
+    "buefy": "^3.0.3",
     "bulma": "^1.0.4",
     "core-js": "^3.45.1",
     "firebase": "^12.2.1",
